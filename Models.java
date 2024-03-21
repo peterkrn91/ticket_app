@@ -4,17 +4,13 @@ class User {
     private String email;
     private String role;
     private String status;
-    private String created_at;
-    private String updated_at;
-
-    public User(String username, String password, String email, String role, String status, String created_at, String updated_at) {
+    
+    public User(String username, String password, String email, String role, String status) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
         this.status = status;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
     }
 
     public String getUsername() {
@@ -35,13 +31,5 @@ class User {
 
     public String getStatus() {
         return status;
-    }
-
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public String getUpdated_at() {
-        return updated_at;
     }
 }
