@@ -1,12 +1,11 @@
 package models;
 
-import java.util.ArrayList;
-
 public class Concert {
     private ConcertInfo concertInfo;
     private int totalBooth;
-    private Booth[] booths = new Booth[]{};
-    public Concert(ConcertInfo concertInfo, int totalBooth,  Booth[] booths) {
+    private Booth[] booths = new Booth[] {};
+
+    public Concert(ConcertInfo concertInfo, int totalBooth, Booth[] booths) {
         this.concertInfo = concertInfo;
         this.totalBooth = totalBooth;
         this.booths = booths;

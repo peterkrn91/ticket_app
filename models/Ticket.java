@@ -1,10 +1,7 @@
 package models;
 
 public class Ticket {
-    private int concert;
-    private int booth;
-    private int quantity;
-    private int price;
+    private int concert, booth, quantity, price;
 
     public Ticket(int concert, int booth, int quantity) {
         this.concert = concert;

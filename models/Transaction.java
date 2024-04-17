@@ -1,7 +1,5 @@
 package models;
 
-import java.util.ArrayList;
-
 public class Transaction {
     private String invoiceNumber;
     private Ticket tickets;

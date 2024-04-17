@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -14,127 +15,225 @@ public class Main {
     static Scanner scn = new Scanner(System.in);
     static String presentUserId;
 
-    public static void importData() {
-        // concert data
-        Booth boothConcertA1 = new Booth(12, 1000000, "pink");
-        Booth boothConcertA2 = new Booth(12, 1200000 , "red");
-        Booth boothConcertB2 = new Booth(5, 3000000, "white");
-        ConcertInfo concertInfo1 = new ConcertInfo("Bandung", "01/02/2024", "12:00", "bestTIme", "Ed Shereen",
-                "the best concert you will ever had");
-        ConcertInfo concertInfo2 = new ConcertInfo("Jakarta", "01/16/2024", "14:00", "Laufey Wordl Tour", "Laufey",
-                "the second best concert you will ever had");
-        concert.add(new Concert(concertInfo2, 0, new Booth[] { boothConcertA1, boothConcertA2 }));
-
-        // customer data
-        customers.put("001", new Customer("Reivel", "123", "082321534551", "0329 0234 2130 3210", "admin"));
-        customers.put("002", new Customer("Peter", "123", "31290312", "38129321", "user"));
-    
-    }
-
     public static void main(String[] args) {
         importData();
         Login();
     }
 
+    public static void importData() {
+        // concert data
+        Booth boothConcertA1 = new Booth(300, 150, "Pink");
+        Booth boothConcertA2 = new Booth(200, 175, "Blue");
+        Booth boothConcertB1 = new Booth(50, 300, "Platinum");
+        Booth boothConcertB2 = new Booth(400, 130, "Green");
+        ConcertInfo concertInfo1 = new ConcertInfo("Jakarta International Stadium, Jakarta", "02/03/2024", "18:00",
+                "+-=÷x Tour (The Mathematics Tour)", "Ed Sheeran",
+                "Ed Sheeran's 4th World Tour");
+        ConcertInfo concertInfo2 = new ConcertInfo("JIEXPO Kemayoran, Jakarta", "25/05/2024", "17:00",
+                "Laufey in Java Jazz Festival", "Laufey",
+                "Special Performance by Laufey in Java Jazz Festival");
+        concert.add(new Concert(concertInfo1, 2, new Booth[] { boothConcertA1, boothConcertA2 }));
+        concert.add(new Concert(concertInfo2, 2, new Booth[] { boothConcertB1, boothConcertB2 }));
+
+        // customer data
+        customers.put("001", new Customer("Reivel", "123", "082321534551", "0329 0234 2130 3210", "admin"));
+        customers.put("002", new Customer("Peter", "123", "081258291928", "0129 2327 7570 5890", "user"));
+    }
+
     public static void Login() {
-        System.out.println("masukan nama Anda");
+        System.out.print("Input name: ");
         String nama = scn.nextLine();
-        System.out.println("masukan Password");
+        System.out.print("Input password: ");
         String pass = scn.nextLine();
         String cek = LoginController.loginCustomer(nama, pass, customers);
+
+        if (cek == null) {
+            System.out.println("Error: Customer database or presentUserId is null.");
+            return;
+        }
+
         if (cek.equalsIgnoreCase("admin")) {
-            System.out.println("selamat datang admin");
+            System.out.println("Welcome, admin Ticket.Com!");
             Admin();
         } else if (cek.equalsIgnoreCase("login")) {
             presentUserId = cek;
-            System.out.println("maaf password akun anda salah");
+            System.out.println("Incorrect password. Please try again.");
             Login();
         } else if (cek.equalsIgnoreCase("register")) {
-            System.out.println("maaf Anda belum membuat akun. silahkan register");
+            System.out.println("Sorry, your account doesn't exist. Please register.");
             Register();
-        } else {    
-            System.out.println("selamat datang " + nama);
+        } else {
+            System.out.println("Welcome to Ticket.Com, " + nama + "! ");
+            presentUserId = cek;
             pilihConcert();
         }
-
     }
 
     public static void Register() {
-        System.out.println("masukan nama Anda");
+        System.out.print("Input name: ");
         String nama = scn.nextLine();
-        System.out.println("masukan password");
+        System.out.print("Input password: ");
         String pass = scn.nextLine();
-        System.out.println("masukan nomor telepon Anda");
+        System.out.print("Input personal number: ");
         String phoneNum = scn.nextLine();
-        System.out.println("masukan nomor kartu kredit Anda");
+        System.out.print("Input Credit Card number: ");
         String cardNum = scn.nextLine();
         Customer newCustomer = RegisterController.registerCustomer(nama, pass, phoneNum, cardNum);
         customers.put(nama, newCustomer);
-        System.out.println("Selamat Bergabung " + nama);
+        System.out.println("Welcome to Ticket.Com, " + nama + "! ");
         presentUserId = nama;
         pilihConcert();
     }
 
     public static void pilihConcert() {
-        System.out.println("===== Selamat Datang =======");
-        System.out.println("Id\tTitle\t\tDate\t\tArtist");
+        System.out.println("=============================== AVAILABLE CONCERTS ===============================");
+        System.out.println("Id\t\tTitle\t\t\t\tDate\t\t\tArtist");
         for (int i = 0; i < concert.size(); i++) {
-            System.out.println(i + "  " + concert.get(i).getConcertInfo().getTitle() + "       "
-                    + concert.get(i).getConcertInfo().getDate() + "       "
+            System.out.println(i + "\t" + concert.get(i).getConcertInfo().getTitle() + "\t"
+                    + concert.get(i).getConcertInfo().getDate() + "\t\t"
                     + concert.get(i).getConcertInfo().getArtistName());
-            System.out.println("\n================================");
+            System.out.println("\n===================================================================================");
         }
-        System.out.println("silahkan pilih Id Concert");
-        int pilihConcert = scn.nextInt();
-        if (concert.size() < pilihConcert && pilihConcert < 0) {
-            System.out.println("maaf concert yang ada pilih tidak ada");
+        System.out.println("Choose ConcertID: ");
+        int concertID = scn.nextInt();
+        if (concert.size() < concertID && concertID < 0) {
+            System.out.println("Error, ConcertID doesn't exist.");
             pilihConcert();
-        }else{
-            pilihBooth(pilihConcert);
+        } else {
+            pilihBooth(concertID);
         }
 
     }
-    public static void pilihBooth(int concertId){
-        System.out.println("==============");
-        System.out.println("booth id\t booth category\t price");
-        Booth[] booths = concert.get(concertId).getBooth();
+
+    public static void pilihBooth(int concertID) {
+        System.out.println("============== AVAILABLE BOOTHS ==============");
+        System.out.println("BoothID\t\tBooth Category\t\tPrice");
+        Booth[] booths = concert.get(concertID).getBooth();
         for (int i = 0; i < booths.length; i++) {
-            System.out.println(i + "\t" + booths[i].getCatName() +"\t"+ booths[i].getPrice());
+            System.out.println(i + "\t\t" + booths[i].getCatName() + "\t\t" + booths[i].getPrice());
         }
-        System.out.println("masukan id category booth");
-        int pilihCat = scn.nextInt();
-        System.out.println("masukan banyak tiket yang ingin dibeli");
+        System.out.println("==============================================");
+        System.out.print("Input Booth Category: ");
+        int boothCategory = scn.nextInt();
+        System.out.print("Input Ticket Quantity: ");
         int quantity = scn.nextInt();
-        if (pilihCat > booths.length && pilihCat > 0) {
-            System.out.println("maaf booth yang ada pilih tidak ada");
-            pilihBooth(concertId);
+        if (boothCategory > booths.length && boothCategory > 0) {
+            System.out.println("Error, Booth Category doesn't exist.");
+            pilihBooth(concertID);
         } else {
-            transaction(concertId, pilihCat, quantity);
+            transaction(concertID, boothCategory, quantity);
         }
     }
-    public static void transaction(int concertId, int pilihBooth, int quantity) { //invoice number, ticket apa aja, quantity, total satuan, total smua
-        System.out.println("apahkah anda yakin ? ");
+
+    public static void transaction(int concertID, int boothCategory, int quantity) { // invoice number, ticket apa aja,
+                                                                                     // quantity, total satuan, total
+                                                                                     // smua
+        System.out.println("==============================================");
+        System.out.println("Confirm your transaction? (true/false)");
         boolean confirmation = scn.nextBoolean();
+        scn.nextLine();
+
         if (confirmation) {
-            String invoice = "INV" + concertId+""+pilihBooth;
-            Transaction createTransaction = new Transaction(invoice, new Ticket(concertId, pilihBooth, quantity));
-            if (customers.get(presentUserId).getTransactions().isEmpty()) {
-                LinkedList<Transaction> transactions = new LinkedList<>();
-                transactions.add(createTransaction);
-                customers.get(presentUserId).setTransactions(transactions);
-            }else{
-                LinkedList<Transaction> transactions = customers.get(presentUserId).getTransactions();
-                transactions.add(createTransaction);
-                customers.get(presentUserId).setTransactions(transactions);
+            if (customers != null && customers.containsKey(presentUserId)) {
+                String invoice = "INV" + concertID + "" + boothCategory;
+                Transaction createTransaction = new Transaction(invoice,
+                        new Ticket(concertID, boothCategory, quantity));
+
+                LinkedList<Transaction> userTransactions = customers.get(presentUserId).getTransactions();
+                if (userTransactions == null) {
+                    userTransactions = new LinkedList<>();
+                }
+                userTransactions.add(createTransaction);
+                customers.get(presentUserId).setTransactions(userTransactions);
+
+                System.out.println("==============================================");
+                System.out.println("Transaction successful!\nYour invoice number: \t"
+                        + customers.get(presentUserId).getTransactions().get(0).getInvoiceNumber());
+            } else {
+                System.out.println("Customer or presentUserId is null. Unable to process transaction.");
             }
-            System.out.println(customers.get(presentUserId).getTransactions().get(0).getInvoiceNumber());
         } else {
-            pilihBooth(concertId);
+            pilihBooth(concertID);
         }
     }
 
     public static void Admin() {
-        System.out.println("selamat datang admin");
+        System.out.println("============== ADMIN MENU ==============");
+        System.out.println("1. Add Concerts\n2. Check Booth Income\n3. Check Customer's Transactions");
+        System.out.println("Choose Menu: ");
+        int menu = scn.nextInt();
+
+        switch (menu) {
+            case 1:
+                System.out.print("Concert title: ");
+                String title = scn.next();
+                scn.nextLine();
+                System.out.print("Concert artistName: ");
+                String artistName = scn.next();
+                System.out.print("Concert date: ");
+                String date = scn.next();
+                System.out.print("Concert time: ");
+                String time = scn.next();
+                System.out.print("Concert location: ");
+                String location = scn.next();
+                scn.nextLine();
+                System.out.print("Concert description: ");
+                String description = scn.next();
+                scn.nextLine();
+
+                System.out.print("Total Booth: ");
+                int totalBooth = scn.nextInt();
+                scn.nextLine();
+
+                System.out.println("Please input all booth details.");
+
+                Booth[] booths = new Booth[totalBooth];
+                for (int i = 0; i < totalBooth; i++) {
+                    System.out.println("Booth " + (i + 1) + " Details:");
+                    System.out.print("Booth Available Ticket: ");
+                    int availableTicket = scn.nextInt();
+                    System.out.print("Booth Ticket Price: ");
+                    int ticketPrice = scn.nextInt();
+                    scn.nextLine();
+                    System.out.print("Booth Category Name: ");
+                    String catName = scn.next();
+                    booths[i] = new Booth(availableTicket, ticketPrice, catName);
+                }
+
+                ConcertController.addConcert(new ConcertInfo(location, date, time, title, artistName, description),
+                        totalBooth, booths);
+                System.out.println(
+                        "Successfully added new concert!\n" +
+                                "==================================" + "\n" +
+                                "Concert Details:\n" +
+                                "Title: " + title + "\n" +
+                                "Artist Name: " + artistName + "\n" +
+                                "Date: " + date + "\n" +
+                                "Time: " + time + "\n" +
+                                "Location: " + location + "\n" +
+                                "Description: " + description + "\n" +
+                                "==================================" + "\n" +
+                                "Total Booths: " + totalBooth + "\n" +
+                                "Booth Details:" + "\n" +
+                                "==================================");
+                for (int i = 0; i < totalBooth; i++) {
+                    System.out.print("Booth " + (i + 1) + " Details:" + "\n");
+                    System.out.print("Available Ticket: " + booths[i].getAvailableTicket() + "\n");
+                    System.out.print("Ticket Price: " + booths[i].getPrice() + "\n");
+                    System.out.print("Category Name: " + booths[i].getCatName() + "\n");
+                    System.out.println();
+                }
+                Admin();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                System.out.println("Invalid menu choice. Please select a valid menu option.");
+                Admin();
+                break;
+        }
     }
 
 }

@@ -1,8 +1,7 @@
 package models;
 
 public class Booth {
-    private int availableTicket;
-    private int price;
+    private int availableTicket, price;
     private String catName;
 
     public Booth(int availableTicket, int price, String catName) {
@@ -11,10 +10,11 @@ public class Booth {
         this.catName = catName;
     }
 
-    public String getCatName(){
+    public String getCatName() {
         return catName;
     }
-    public void setCatName(String catName){
+
+    public void setCatName(String catName) {
         this.catName = catName;
     }
 

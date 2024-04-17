@@ -14,11 +14,12 @@ public class Customer {
         this.role = role;
         this.transactions = new LinkedList<>();
     }
+
     public String getRole() {
         return role;
     }
 
-    public void setRole(String role){
+    public void setRole(String role) {
         this.role = role;
     }
 
