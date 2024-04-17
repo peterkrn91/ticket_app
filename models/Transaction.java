@@ -1,27 +1,29 @@
 package models;
 
-public class Transaction {
-    private int invoiceNumber;
-    private Ticket[] tickets = new Ticket[]{};
+import java.util.ArrayList;
 
-    public Transaction(int invoiceNumber, Ticket[] tickets) {
+public class Transaction {
+    private String invoiceNumber;
+    private Ticket tickets;
+
+    public Transaction(String invoiceNumber, Ticket ticket) {
         this.invoiceNumber = invoiceNumber;
-        this.tickets = tickets;
+        this.tickets = ticket;
     }
 
-    public int getInvoiceNumber() {
+    public String getInvoiceNumber() {
         return invoiceNumber;
     }
 
-    public void setInvoiceNumber(int invoiceNumber) {
+    public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
 
-    public Ticket[] getTickets() {
+    public Ticket getTickets() {
         return tickets;
     }
 
-    public void setTickets(Ticket[] tickets) {
+    public void setTickets(Ticket tickets) {
         this.tickets = tickets;
     }
 }

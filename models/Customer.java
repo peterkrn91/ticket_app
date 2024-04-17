@@ -3,14 +3,31 @@ package models;
 import java.util.LinkedList;
 
 public class Customer {
-    private String name, phoneNumber, creditCardNumber;
+    private String name, password, phoneNumber, creditCardNumber, role;
     private LinkedList<Transaction> transactions = new LinkedList<Transaction>();
 
-    public Customer(String name, String phoneNumber, String creditCardNumber, LinkedList<Transaction> transactions) {
+    public Customer(String name, String pass, String phoneNumber, String creditCardNumber, String role) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.creditCardNumber = creditCardNumber;
-        this.transactions = transactions;
+        this.password = pass;
+        this.role = role;
+        this.transactions = new LinkedList<>();
+    }
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role){
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String pass) {
+        this.password = pass;
     }
 
     public String getName() {

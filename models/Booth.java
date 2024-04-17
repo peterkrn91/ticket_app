@@ -1,42 +1,21 @@
 package models;
 
 public class Booth {
-    private int totalRow;
-    private int totalColumn;
-    private Seat[][] seats = new Seat[totalRow][totalColumn];
     private int availableTicket;
     private int price;
+    private String catName;
 
-    public Booth(int totalRow, int totalColumn, Seat[][] seats, int availableTicket, int price) {
-        this.totalRow = totalRow;
-        this.totalColumn = totalColumn;
-        this.seats = seats;
+    public Booth(int availableTicket, int price, String catName) {
         this.availableTicket = availableTicket;
         this.price = price;
+        this.catName = catName;
     }
 
-    public int getTotalRow() {
-        return totalRow;
+    public String getCatName(){
+        return catName;
     }
-
-    public void setTotalRow(int totalRow) {
-        this.totalRow = totalRow;
-    }
-
-    public int getTotalColumn() {
-        return totalColumn;
-    }
-
-    public void setTotalColumn(int totalColumn) {
-        this.totalColumn = totalColumn;
-    }
-
-    public Seat[][] getSeats() {
-        return seats;
-    }
-
-    public void setSeats(Seat[][] seats) {
-        this.seats = seats;
+    public void setCatName(String catName){
+        this.catName = catName;
     }
 
     public int getAvailableTicket() {

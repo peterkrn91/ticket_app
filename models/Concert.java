@@ -1,13 +1,15 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Concert {
     private ConcertInfo concertInfo;
     private int totalBooth;
-    private Booth[] booth = new Booth[]{};
-    public Concert(ConcertInfo concertInfo, int totalBooth, Booth[] booth) {
+    private Booth[] booths = new Booth[]{};
+    public Concert(ConcertInfo concertInfo, int totalBooth,  Booth[] booths) {
         this.concertInfo = concertInfo;
         this.totalBooth = totalBooth;
-        this.booth = booth;
+        this.booths = booths;
     }
 
     public ConcertInfo getConcertInfo() {
@@ -27,10 +29,10 @@ public class Concert {
     }
 
     public Booth[] getBooth() {
-        return booth;
+        return booths;
     }
 
-    public void setBooth(Booth[] booth) {
-        this.booth = booth;
+    public void setBooth(Booth[] booths) {
+        this.booths = booths;
     }
 }

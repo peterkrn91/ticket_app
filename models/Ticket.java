@@ -3,14 +3,13 @@ package models;
 public class Ticket {
     private int concert;
     private int booth;
-    private int row;
-    private int column;
+    private int quantity;
+    private int price;
 
-    public Ticket(int concert, int booth, int row, int column) {
+    public Ticket(int concert, int booth, int quantity) {
         this.concert = concert;
         this.booth = booth;
-        this.row = row;
-        this.column = column;
+        this.quantity = quantity;
     }
 
     public int getConcert() {
@@ -27,21 +26,5 @@ public class Ticket {
 
     public void setBooth(int booth) {
         this.booth = booth;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getColumn() {
-        return column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
     }
 }
