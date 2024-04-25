@@ -2,6 +2,7 @@ package models;
 
 public class Booth {
     private int availableTicket, price;
+    private int totalPendapatan = 0;
     private String catName;
 
     public Booth(int availableTicket, int price, String catName) {
@@ -32,5 +33,13 @@ public class Booth {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getTotal() {
+        return totalPendapatan;
+    }
+
+    public void addTotal(int tp) {
+        this.totalPendapatan += tp;
     }
 }

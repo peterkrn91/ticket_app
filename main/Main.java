@@ -6,6 +6,8 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import controllers.*;
 import models.*;
 
@@ -121,13 +123,14 @@ public class Main {
             System.out.println("Error, Booth Category doesn't exist.");
             pilihBooth(concertID);
         } else {
-            transaction(concertID, boothCategory, quantity);
+            transaction(concertID, boothCategory, quantity, booths[boothCategory]);
         }
     }
 
-    public static void transaction(int concertID, int boothCategory, int quantity) { // invoice number, ticket apa aja,
-                                                                                     // quantity, total satuan, total
-                                                                                     // smua
+    public static void transaction(int concertID, int boothCategory, int quantity, Booth booth) { // invoice number,
+                                                                                                  // ticket apa aja,
+        // quantity, total satuan, total
+        // smua
         System.out.println("==============================================");
         System.out.println("Confirm your transaction? (true/false)");
         boolean confirmation = scn.nextBoolean();
@@ -149,6 +152,8 @@ public class Main {
                 System.out.println("==============================================");
                 System.out.println("Transaction successful!\nYour invoice number: \t"
                         + customers.get(presentUserId).getTransactions().get(0).getInvoiceNumber());
+
+                booth.addTotal(quantity * booth.getPrice());
             } else {
                 System.out.println("Customer or presentUserId is null. Unable to process transaction.");
             }
@@ -226,8 +231,34 @@ public class Main {
                 Admin();
                 break;
             case 2:
+            System.out.println("Concert : ");
+            int indexConcert = scn.nextInt();
+            System.out.println("Booth :");
+            int indexBooth = scn.nextInt();
+            Booth[] boothss = concert.get(indexConcert).getBooth();
+            System.out.println("Total dari Boooth "+indexBooth+" :" + boothss[indexBooth].getTotal());
                 break;
             case 3:
+            
+            System.out.println("ID\t\tNama");
+            for (String key : customers.keySet()){
+                System.out.println(key +"\t\t"+customers.get(key).getName());
+            }
+            System.out.println("id customer : ");
+            String id = scn.nextLine();
+            Customer customer = customers.get(id);
+            LinkedList<Transaction> transactions = customer.getTransactions();
+            System.out.println("invoiceNum\t\tconcert\tbooth\tticketPrice\tTicketQuantity");
+            for (int i = 0; i < transactions.size(); i++) {
+                System.out.println(transactions.get(i).getInvoiceNumber() + 
+                "\t" +concert.get(transactions.get(i).getTickets().getConcert()).getConcertInfo().getTitle() + 
+                "\t" + concert.get(transactions.get(i).getTickets().getConcert()).getBooth()[transactions.get(i).getTickets().getBooth()].getCatName() +
+                "\t" + concert.get(transactions.get(i).getTickets().getConcert()).getBooth()[transactions.get(i).getTickets().getBooth()].getPrice() +
+                "\t"+ transactions.get(i).getTickets().getQuantity() );
+            }
+
+
+            
                 break;
             default:
                 System.out.println("Invalid menu choice. Please select a valid menu option.");

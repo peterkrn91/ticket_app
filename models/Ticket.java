@@ -24,4 +24,12 @@ public class Ticket {
     public void setBooth(int booth) {
         this.booth = booth;
     }
+
+    public int getQuantity(){
+        return quantity;
+    }
+
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
 }

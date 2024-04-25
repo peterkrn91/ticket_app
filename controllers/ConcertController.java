@@ -9,4 +9,7 @@ public class ConcertController {
         Concert concert = new Concert(concertInfo, totalBooth, booths);
         return concert;
     }
+    public static int countBoothIncome(ArrayList<Concert> concert, int indexBooth, int indexConcert){
+        for()
+    }
 }
