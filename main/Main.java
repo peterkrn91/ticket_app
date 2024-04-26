@@ -2,11 +2,8 @@ package main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import controllers.*;
 import models.*;
@@ -38,8 +35,8 @@ public class Main {
         concert.add(new Concert(concertInfo2, 2, new Booth[] { boothConcertB1, boothConcertB2 }));
 
         // customer data
-        customers.put("001", new Customer("Reivel", "123", "082321534551", "0329 0234 2130 3210", "admin"));
-        customers.put("002", new Customer("Peter", "123", "081258291928", "0129 2327 7570 5890", "user"));
+        customers.put("1", new Customer("Reivel", "123", "082321534551", "0329 0234 2130 3210", "admin"));
+        customers.put("2", new Customer("Peter", "123", "081258291928", "0129 2327 7570 5890", "user"));
     }
 
     public static void Login() {
@@ -67,7 +64,27 @@ public class Main {
         } else {
             System.out.println("Welcome to Ticket.Com, " + nama + "! ");
             presentUserId = cek;
-            pilihConcert();
+            System.out.println("1. See Concert\n2. See Ticket\n3. Exit\nPilih Menu :");
+            int pilihan = scn.nextInt();
+            while(pilihan!=3){
+                switch(pilihan){
+                    case 1:
+                        pilihConcert();
+                    break;
+                    case 2:
+                        for (int i = 0; i < customers.get(presentUserId).getTransactions().size(); i++) {
+                            Transaction t1 = customers.get(presentUserId).getTransactions().get(i);
+                            Concert c1 = concert.get(t1.getTickets().getConcert());
+                            ConcertController.displayTicket(t1, c1);
+                        }
+                    break;
+                    default:
+                    System.out.println("Salah Input, Silahkan Input Ulang");
+                    break; 
+                }
+                System.out.println("1. See Concert\n2. See Ticket\n3. Exit\nPilih Menu :");
+                pilihan = scn.nextInt();
+            }
         }
     }
 
