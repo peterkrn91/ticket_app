@@ -250,11 +250,9 @@ public class Main {
             LinkedList<Transaction> transactions = customer.getTransactions();
             System.out.println("invoiceNum\t\tconcert\tbooth\tticketPrice\tTicketQuantity");
             for (int i = 0; i < transactions.size(); i++) {
-                System.out.println(transactions.get(i).getInvoiceNumber() + 
-                "\t" +concert.get(transactions.get(i).getTickets().getConcert()).getConcertInfo().getTitle() + 
-                "\t" + concert.get(transactions.get(i).getTickets().getConcert()).getBooth()[transactions.get(i).getTickets().getBooth()].getCatName() +
-                "\t" + concert.get(transactions.get(i).getTickets().getConcert()).getBooth()[transactions.get(i).getTickets().getBooth()].getPrice() +
-                "\t"+ transactions.get(i).getTickets().getQuantity() );
+                Transaction transaction1 = transactions.get(i);
+                Concert concert1 = concert.get(transaction1.getTickets().getConcert());
+                ConcertController.displayTicket(transaction1, concert1);
             }
 
 

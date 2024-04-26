@@ -2,7 +2,7 @@ package models;
 
 public class Booth {
     private int availableTicket, price;
-    private int totalPendapatan = 0;
+    private int totalPendapatan;
     private String catName;
 
     public Booth(int availableTicket, int price, String catName) {
