@@ -38,6 +38,7 @@ public class Main {
         customers.put("1", new Customer("Reivel", "123", "082321534551", "0329 0234 2130 3210", "admin"));
         customers.put("2", new Customer("Peter", "123", "081258291928", "0129 2327 7570 5890", "user"));
         customers.put("3", new Customer("Calv", "123", "081222222222", "0229 3327 4570 5890", "user"));
+        customers.put("4", new Customer("Hardcode", "123", "08292929299", "0111 2222 3232 4321", "user"));
     }
 
     public static void Login() {
@@ -164,21 +165,13 @@ public class Main {
         if (confirmation) {
             if (customers != null && customers.containsKey(presentUserId)) {
                 String invoice = "INV" + concertID + "" + boothCategory;
-                Transaction createTransaction = new Transaction(invoice,
-                        new Ticket(concertID, boothCategory, quantity));
-
-                LinkedList<Transaction> userTransactions = customers.get(presentUserId).getTransactions();
-                if (userTransactions == null) {
-                    userTransactions = new LinkedList<>();
-                }
-                userTransactions.add(createTransaction);
-                customers.get(presentUserId).setTransactions(userTransactions);
+                
+                ConcertController.createTransaction(invoice, concertID,  boothCategory,  quantity,  customers,  presentUserId,  booth);
 
                 System.out.println("==============================================");
                 System.out.println("Transaction successful!\nYour invoice number: \t"
                         + customers.get(presentUserId).getTransactions().get(0).getInvoiceNumber());
 
-                booth.addTotal(quantity * booth.getPrice());
             } else {
                 System.out.println("Customer or presentUserId is null. Unable to process transaction.");
             }
@@ -280,9 +273,8 @@ public class Main {
                 String id = scn.nextLine();
                 Customer customer = customers.get(id);
                 LinkedList<Transaction> transactions = customer.getTransactions();
-                System.out.println("invoiceNum\t\tconcert\tbooth\tticketPrice\tTicketQuantity");
+                System.out.println("invoiceNum\t\tconcert\t\t\tbooth\t\tticketPrice\t\tTicket\t\tQuantity");
                 for (int i = 0; i < transactions.size(); i++) {
-                    if()
                     Transaction transaction1 = transactions.get(i);
                     Concert concert1 = concert.get(transaction1.getTickets().getConcert());
                     ConcertController.displayTicket(transaction1, concert1);
@@ -291,8 +283,7 @@ public class Main {
                 case 4:
                 break;
                 default:
-                    System.out.println("Invalid menu choice. Please select a valid menu option.");
-                    Admin();
+                    System.out.println("Salah Input, Silahkan Input Ulang");
                     break;
             }
             
