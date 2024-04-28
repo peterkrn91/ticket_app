@@ -15,9 +15,9 @@ public class ConcertController {
     }
     public static void displayTicket(Transaction transactions, Concert concert){
         System.out.println(transactions.getInvoiceNumber() + 
-                "\t" +concert.getConcertInfo().getTitle() + 
-                "\t" + concert.getBooth()[transactions.getTickets().getBooth()].getCatName() +
-                "\t" + concert.getBooth()[transactions.getTickets().getBooth()].getPrice() +
-                "\t"+ transactions.getTickets().getQuantity() );
+                "\t\t" +concert.getConcertInfo().getTitle() + 
+                "\t\t" + concert.getBooth()[transactions.getTickets().getBooth()].getCatName() +
+                "\t\t" + concert.getBooth()[transactions.getTickets().getBooth()].getPrice() +
+                "\t\t"+ transactions.getTickets().getQuantity() );
     }
 }
